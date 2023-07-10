@@ -1,27 +1,28 @@
 // Info.js
-import React from "react";
+import React, { useState } from "react";
 import "./styles/style.css"; // 直接import就可以套用style.css的樣式，在style.css裡面有設定class為info的標籤的樣式
 
-// 使用JSX語法製作一個component，就是一個function，function的名稱要跟檔案名稱一樣
-// 重要的東西就是一個function的return只能有一個東西(一個區塊div or nav...)
-//  就是你要在component裡面放很多標籤的話JSX語法就是function只能return一個區塊(div、nav、section...)，所以所有的標籤就要包在div標籤(or nav...)裡面，讓function去return唯一的標籤
+// State(狀態)
+// 在React當中，State是Component所持有的一個物件，此物件包含有關Component的數據或信息。
+// Component的State改變時，持有此state的所有Components都會全部重新渲染(rerender)。
 
-// JSX特殊語法1
-// 在大括號 { } 內編寫expression，就是在component中放入JS語法的作法
-// Expression就是會算出一個值的操作，像是變數3會算出3，3*5會算出15，function hello()如果沒return東西的話就會算出undefined。
-// 如果我們要顯示很多內容的話，通常我們會用expression中寫array.prototype.map()，因為arr.map(callbackFn) : 創建一個新的空array，arr這個陣列中的每個元素執行callback function後return的值就會添加到這個新array中。所以array.map最後就會return這個新的array。
-// 在expression中要用變數的話就要用{}把變數名稱包起來。
+// 設定State
+// const [stateName, setState] = useState(initialValue);
+// stateName是這個State的名稱，setName是更新state時所使用的函數。initialValue是stateName這個state的初始值
+const Info = () => {
+  // 為Info component設定一個名為name的state，更新這個state所使用的函數為setName，"小明"為name這個state的初始值
+  const [name, setName] = useState("小明");
+  let age = 21;
 
-// // JSX特殊語法2
-// 在JSX裡面的HTML標籤的class都要寫成className，因為在JavaScript中class是一個保留的字。React編譯後會自動換成class
-
-// Component屬性
-// App Component在使用Info組件時給的屬性就會被帶入到props中，因此可以看到props物件中有name屬性與age屬性
-const Info = (props) => {
+  // 當按鈕被按下時就會執行這個函式
+  const changeNameHandler = () => {
+    setName("小明先生"); // 把name這個state的值改成"小明先生"，因為state被更改了，所以這個Info component就會被重新渲染
+  };
   return (
     <div className="info">
-      <p>朋友名稱:{props.name}</p>
-      <p>朋友年齡:{props.age}</p>
+      <p>朋友名稱:{name}</p>
+      <p>朋友年齡:{age}</p>
+      <button onClick={changeNameHandler}>改名按鈕</button>
     </div>
   );
 };
