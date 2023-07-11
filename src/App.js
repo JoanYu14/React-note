@@ -6,17 +6,30 @@ import Info from "./Info"; // import Info.js export的function或者說div標籤
 import Create from "./Create";
 import Car from "./Car";
 
-// 練習Class Component
-// brand與owner會傳到Car組件的props物件中
+// Create React App 並不自動包含page routing的功能，所以最解決方案是使用 react-router-dom這個package。
+// 從react-router-dom這個package裡面import 1.BrowserRouter 2.Routes 3.Route
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
+import HomePage from "./HomePage";
+import AboutPage from "./AboutPage";
+import Page404 from "./Page404";
+
 function App() {
   return (
-    <div>
-      <Car brand="TOYOTA" owner="Joan" />
-      <Car brand="BMW" owner="Kevin" />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="*" element={<Page404 />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
+export default App;
 
+// 這是練習State Lifting的程式碼
 // function App() {
 //   // 這是我們把原本應該在Create的state往上拉到App這裡來
 //   // 為App component設定一個名為messages的state，更新這個state所使用的函數為setMessages，空陣列[]為messages這個state的初始值
@@ -33,4 +46,13 @@ function App() {
 //   );
 // }
 
-export default App;
+// // 這是練習Class Component的程式碼
+// // brand與owner會傳到Car組件的props物件中
+// function App() {
+//   return (
+//     <div>
+//       <Car brand="TOYOTA" owner="Joan" />
+//       <Car brand="BMW" owner="Kevin" />
+//     </div>
+//   );
+// }
